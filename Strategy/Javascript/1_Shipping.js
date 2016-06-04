@@ -1,52 +1,69 @@
-    function Factory() {
-        this.createEmployee = function (type) {
-            var employee;
-     
-            if (type === "fulltime") {
-                employee = new FullTime();
-            } else if (type === "parttime") {
-                employee = new PartTime();
-            } else if (type === "temporary") {
-                employee = new Temporary();
-            } else if (type === "contractor") {
-                employee = new Contractor();
-            }
-     
-            employee.type = type;
-     
-            employee.say = function () {
-                console.log(this.type + ": rate " + this.hourly + "/hour");
-            }
-     
-            return employee;
-        }
-    }
-     
-    var FullTime = function () {
-        this.hourly = "$12";
-    };
-     
-    var PartTime = function () {
-        this.hourly = "$11";
-    };
-     
-    var Temporary = function () {
-        this.hourly = "$10";
-    };
-     
-    var Contractor = function () {
-        this.hourly = "$15";
-    };
-     
+var Shipping = function() {
+    this.company = "";
+};
 
-    var factory = new Factory();
-     
-    var emp1 = factory.createEmployee("fulltime");
-            emp1.say();
-    var emp2 =factory.createEmployee("parttime");
-        emp2.say();
-    var emp3 = factory.createEmployee("temporary");
-        emp3.say();
-    var emp4 =factory.createEmployee("contractor");
-        emp4.say();
-    
+Shipping.prototype = {
+    setStrategy: function(company) {
+        this.company = company;
+    },
+
+    calculate: function(package) {
+        return this.company.calculate(package);
+    }
+};
+
+var UPS = function() {
+    this.calculate = function(package) {
+        // calculations...
+        return "$45.95";
+    }
+};
+
+var USPS = function() {
+    this.calculate = function(package) {
+        // calculations...
+        return "$39.40";
+    }
+};
+
+var Fedex = function() {
+    this.calculate = function(package) {
+        // calculations...
+        return "$43.20";
+    }
+};
+
+// log helper
+
+var log = (function() {
+    var log = "";
+
+    return {
+        add: function(msg) { log += msg + "\n"; },
+        show: function() { alert(log); log = ""; }
+    }
+})();
+
+function run() {
+    var package = { from: "76712", to: "10012", weigth: "lkg" };
+
+    // the 3 strategies
+
+    var ups = new UPS();
+    var usps = new USPS();
+    var fedex = new Fedex();
+
+    var shipping = new Shipping();
+
+    shipping.setStrategy(ups);
+    log.add("UPS Strategy: " + shipping.calculate(package));
+    shipping.setStrategy(usps);
+    log.add("USPS Strategy: " + shipping.calculate(package));
+    shipping.setStrategy(fedex);
+    log.add("Fedex Strategy: " + shipping.calculate(package));
+
+    log.show();
+}
+
+
+// http://www.dofactory.com/javascript/strategy-design-pattern
