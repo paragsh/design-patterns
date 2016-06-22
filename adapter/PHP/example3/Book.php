@@ -27,3 +27,8 @@ class Book implements PaperBookInterface
 
 $kindle = new EBookAdapter(new Kindle());
 $kindle->open();
+
+/*
+$bookObj = new Book();
+$bookObj->open();
+*/
