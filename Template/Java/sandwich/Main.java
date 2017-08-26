@@ -3,7 +3,7 @@ package Java.sandwich;
 public class Main {
 
     public static void main(String[] args) {
-//       sandwich sandwichForCustomer1 = new VegClubSandwich();
+//       Sandwich sandwichForCustomer1 = new VegClubSandwich();
 //       sandwichForCustomer1.makeSandwich();
 
        System.out.println("\n");

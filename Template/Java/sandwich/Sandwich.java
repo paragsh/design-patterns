@@ -29,7 +29,7 @@ abstract class Sandwich {
     abstract void addSauce() ;
 
     public void wrapSandwich() {
-        System.out.println("Wrap the sandwich");
+        System.out.println("Wrap the Sandwich");
     }
 
     boolean customerWantsCheese() { return true; }
